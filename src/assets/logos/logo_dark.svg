@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 120" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #1e222b; }
+      .cube-dark { fill: #2b3a54; }
+      .cube-light { fill: #728dae; }
+      .cube-stroke { stroke: #1e222b; stroke-width: 3; stroke-linejoin: round; }
+      .text-smart { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-weight: bold; font-size: 32px; fill: #ffffff; }
+      .text-inventory { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-weight: normal; font-size: 32px; fill: #5c7b9e; }
+    </style>
+  </defs>
+  <rect width="450" height="120" class="bg" rx="8"/>
+  
+  <g transform="translate(30, 25)">
+    <path d="M 35 10 L 65 25 L 35 40 L 5 25 Z" class="cube-light" />
+    <path d="M 23 19 L 47 31 L 35 37 L 11 25 Z" fill="#1e222b" />
+    <path d="M 5 25 L 35 40 L 35 70 L 5 55 Z" class="cube-dark" />
+    <path d="M 13 32 L 27 39 L 27 61 L 13 54 Z" fill="#ffffff" opacity="0.1" />
+    <path d="M 35 40 L 65 25 L 65 55 L 35 70 Z" class="cube-dark" />
+    <path d="M 35 10 L 35 40 M 5 25 L 35 40 L 65 25 M 5 55 L 35 70 L 65 55 M 35 40 L 35 70" fill="none" class="cube-stroke" />
+  </g>
+  
+  <text x="120" y="68">
+    <tspan class="text-smart">Smart </tspan>
+    <tspan class="text-inventory">Inventory</tspan>
+  </text>
+</svg>

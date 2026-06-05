@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 120" width="100%" height="100%">
+  <defs>
+    <style>
+      .bg { fill: #1a1f26; }
+      .cube-face { fill: #ffffff; }
+      .cube-core { fill: #3a5d8c; }
+      .text-main { font-family: 'Segoe UI', Helvetica, Arial, sans-serif; font-weight: bold; font-size: 32px; fill: #ffffff; stroke: #254673; stroke-width: 1.5; paint-order: stroke fill; }
+    </style>
+  </defs>
+  <rect width="450" height="120" class="bg" rx="8"/>
+  
+  <g transform="translate(30, 25)">
+    <path d="M 35 10 L 65 25 L 35 40 L 5 25 Z" class="cube-face" />
+    <path d="M 5 25 L 35 40 L 35 70 L 5 55 Z" class="cube-face" opacity="0.9" />
+    <path d="M 35 40 L 65 25 L 65 55 L 35 70 Z" class="cube-face" opacity="0.85" />
+    <path d="M 35 20 L 53 29 L 35 38 L 17 29 Z" class="cube-core" />
+    <path d="M 35 10 L 35 70 M 5 25 L 65 25 M 5 55 L 65 55" stroke="#1a1f26" stroke-width="2" fill="none"/>
+  </g>
+  
+  <text x="120" y="68" class="text-main">Smart Inventory</text>
+</svg>

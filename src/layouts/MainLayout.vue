@@ -7,6 +7,29 @@
         <q-toolbar-title> Quasar App </q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
+
+        <div>
+          <q-btn
+            flat
+            dense
+            round
+            icon="account_box"
+            class="bg-primary-100 ml-2"
+            :loading="is_logouting"
+          >
+            <q-menu>
+              <q-list>
+                <q-item clickable v-close-popup>
+                  <q-item-section> Profile </q-item-section>
+                </q-item>
+
+                <q-item clickable v-close-popup @click="handleLogout">
+                  <q-item-section> Logout </q-item-section>
+                </q-item>
+              </q-list>
+            </q-menu>
+          </q-btn>
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -27,6 +50,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
+import { useAuth } from 'src/composables/auth';
+import { useDependencies } from 'src/composables/dependencies';
+
+const { logout } = useAuth();
+const { router } = useDependencies();
 
 const linksList: EssentialLinkProps[] = [
   {
@@ -74,8 +102,19 @@ const linksList: EssentialLinkProps[] = [
 ];
 
 const leftDrawerOpen = ref(false);
+const is_logouting = ref(false);
 
 function toggleLeftDrawer() {
   leftDrawerOpen.value = !leftDrawerOpen.value;
+}
+
+async function handleLogout() {
+  is_logouting.value = true;
+  try {
+    await logout();
+    void router.push('/login');
+  } finally {
+    is_logouting.value = false;
+  }
 }
 </script>
