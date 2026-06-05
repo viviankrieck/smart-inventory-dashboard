@@ -2,6 +2,7 @@
 // https://v2.quasar.dev/quasar-cli-vite/quasar-config-file
 
 import { defineConfig } from '#q-app/wrappers';
+import UnoCSS from 'unocss/vite';
 
 export default defineConfig((/* ctx */) => {
   return {
@@ -47,6 +48,10 @@ export default defineConfig((/* ctx */) => {
       // vueRouterBase,
       // vueDevtools,
       // vueOptionsAPI: false,
+
+      extendViteConf(viteConf) {
+        viteConf.plugins?.push(UnoCSS());
+      },
 
       // rebuildCache: true, // rebuilds Vite/linter/etc cache on startup
 
@@ -98,7 +103,7 @@ export default defineConfig((/* ctx */) => {
       // directives: [],
 
       // Quasar plugins
-      plugins: [],
+      plugins: ['Notify'],
     },
 
     // animations: 'all', // --- includes all animations
