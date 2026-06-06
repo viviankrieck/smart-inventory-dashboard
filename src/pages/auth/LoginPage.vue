@@ -15,12 +15,20 @@
             </div>
           </div>
           <q-form>
-            <q-input filled v-model="email" label="Email" type="email" class="mb-4" icon>
+            <q-input dense filled v-model="email" label="Email" type="email" class="mb-4" icon>
               <template v-slot:prepend>
                 <q-icon name="email" />
               </template>
             </q-input>
-            <q-input filled v-model="password" label="Senha" type="password" class="mb-6" icon>
+            <q-input
+              dense
+              filled
+              v-model="password"
+              label="Senha"
+              type="password"
+              class="mb-6"
+              icon
+            >
               <template v-slot:prepend>
                 <q-icon name="lock" />
               </template>
@@ -33,6 +41,7 @@
             </div>
 
             <q-btn
+              dense
               color="primary"
               label="Login"
               type="submit"
@@ -62,8 +71,7 @@ async function handleLogin() {
   is_loading.value = true;
   try {
     await login();
-    // Redirecionar para a página principal ou dashboard após o login bem-sucedido
-    router.push('/dashboard');
+    void router.push({ name: 'dashboard' });
   } finally {
     is_loading.value = false;
   }
