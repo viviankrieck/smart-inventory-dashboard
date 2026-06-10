@@ -10,7 +10,7 @@ const routes: RouteRecordRaw[] = [
     path: '/dashboard',
     component: () => import('layouts/MainLayout.vue'),
     name: 'dashboard',
-    children: [{ path: '', component: () => import('pages/IndexPage.vue') }],
+    children: [{ path: '', component: () => import('pages/dashboard/DashboardPage.vue') }],
   },
 
   // Always leave this as last one,
