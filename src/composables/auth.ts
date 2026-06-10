@@ -9,7 +9,7 @@ export function useAuth() {
 
   async function login(): Promise<void> {
     try {
-      const response = authLoginValidateMock(email.value, password.value);
+      const response = await authLoginValidateMock(email.value, password.value);
       Notify.create({
         type: 'positive',
         message: `Bem-vindo, ${response.user.name}!`,
@@ -22,7 +22,6 @@ export function useAuth() {
       return;
     }
     // Implement your login logic here, e.g., call an API to authenticate the user
-    await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log('Logging in with:', {
       email: email.value,
       password: password.value,
@@ -33,10 +32,9 @@ export function useAuth() {
   async function logout(): Promise<void> {
     // Implement your logout logic here, e.g., clear user session, tokens, etc.
     try {
-      await new Promise((resolve) => setTimeout(resolve, 500));
       Notify.create({
         type: 'info',
-        message: authLogoutMock().message,
+        message: (await authLogoutMock()).message,
       });
     } catch (error) {
       Notify.create({

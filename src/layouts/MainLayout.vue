@@ -1,47 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
-
-        <q-toolbar-title> Quasar App </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
-
-        <div>
-          <q-btn
-            flat
-            dense
-            round
-            icon="account_box"
-            class="bg-primary-100 ml-2"
-            :loading="is_logouting"
-          >
-            <q-menu>
-              <q-list>
-                <q-item clickable v-close-popup>
-                  <q-item-section> Profile </q-item-section>
-                </q-item>
-
-                <q-item clickable v-close-popup @click="handleLogout">
-                  <q-item-section> Logout </q-item-section>
-                </q-item>
-              </q-list>
-            </q-menu>
-          </q-btn>
-        </div>
-      </q-toolbar>
+      <MainHeader @toggle-left-drawer="toggleLeftDrawer" />
     </q-header>
 
-    <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
-      <q-list>
-        <q-item-label header> Essential Links </q-item-label>
+    <DrawerMain v-model="left_drawer_open" />
 
-        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
-      </q-list>
-    </q-drawer>
-
-    <q-page-container>
+    <q-page-container class="bg-linear-to-r from-primary-300 to-primary-200">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -49,72 +14,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
-import { useAuth } from 'src/composables/auth';
-import { useDependencies } from 'src/composables/dependencies';
+import MainHeader from 'src/layouts/components/MainHeader.vue';
+import DrawerMain from 'src/layouts/components/DrawerMain.vue';
 
-const { logout } = useAuth();
-const { router } = useDependencies();
-
-const linksList: EssentialLinkProps[] = [
-  {
-    title: 'Docs',
-    caption: 'quasar.dev',
-    icon: 'school',
-    link: 'https://quasar.dev',
-  },
-  {
-    title: 'Github',
-    caption: 'github.com/quasarframework',
-    icon: 'code',
-    link: 'https://github.com/quasarframework',
-  },
-  {
-    title: 'Discord Chat Channel',
-    caption: 'chat.quasar.dev',
-    icon: 'chat',
-    link: 'https://chat.quasar.dev',
-  },
-  {
-    title: 'Forum',
-    caption: 'forum.quasar.dev',
-    icon: 'record_voice_over',
-    link: 'https://forum.quasar.dev',
-  },
-  {
-    title: 'Twitter',
-    caption: '@quasarframework',
-    icon: 'rss_feed',
-    link: 'https://twitter.quasar.dev',
-  },
-  {
-    title: 'Facebook',
-    caption: '@QuasarFramework',
-    icon: 'public',
-    link: 'https://facebook.quasar.dev',
-  },
-  {
-    title: 'Quasar Awesome',
-    caption: 'Community Quasar projects',
-    icon: 'favorite',
-    link: 'https://awesome.quasar.dev',
-  },
-];
-
-const leftDrawerOpen = ref(false);
-const is_logouting = ref(false);
+const left_drawer_open = ref(false);
 
 function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
-}
-
-async function handleLogout() {
-  is_logouting.value = true;
-  try {
-    await logout();
-    void router.push('/login');
-  } finally {
-    is_logouting.value = false;
-  }
+  left_drawer_open.value = !left_drawer_open.value;
 }
 </script>

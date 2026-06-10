@@ -1,12 +1,17 @@
+import { delay } from 'src/utils/delay';
+
+export const AUTH_USER = {
+  email: 'user@example.com',
+  password: 'password123',
+  remember_me: false,
+};
+
 export function authLoginMock() {
-  return {
-    email: 'user@example.com',
-    password: 'password123',
-    remember_me: false,
-  };
+  return AUTH_USER;
 }
 
-export function authLoginResponseMock() {
+export async function authLoginResponseMock() {
+  await delay(1000);
   return {
     token: 'mocked-jwt-token',
     user: {
@@ -17,22 +22,26 @@ export function authLoginResponseMock() {
   };
 }
 
-export function authLogoutMock() {
+export async function authLogoutMock() {
+  await delay(1000);
   return {
     message: 'Logout executado com sucesso.',
   };
 }
 
-export function authLoginErrorMock() {
+export async function authLoginErrorMock() {
+  await delay(1000);
   return {
     message: 'Credenciais inválidas. Por favor, tente novamente.',
   };
 }
 
-export function authLoginValidateMock(email: string, password: string) {
+export async function authLoginValidateMock(email: string, password: string) {
+  await delay(1000);
   if (email === authLoginMock().email && password === authLoginMock().password) {
     return authLoginResponseMock();
   } else {
-    throw new Error(authLoginErrorMock().message);
+    const error = await authLoginErrorMock();
+    throw new Error(error.message);
   }
 }
