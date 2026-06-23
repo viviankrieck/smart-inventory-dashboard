@@ -1,65 +1,62 @@
 <template>
   <q-page padding>
-    <div class="flex flex-col gap-4">
-      <q-card>
-        <q-card-section>
-          <div class="text-h6">Dashboard</div>
-          <div class="text-subtitle2">Visão geral do estoque e movimentações</div>
-        </q-card-section>
-        <q-separator />
-        <q-card-section>
-          <div class="flex gap-4" v-if="metrics">
-            <template v-for="[metric, value] in Object.entries(metrics)">
-              <div
-                class="bg-primary-500/40 border border-primary-500 text-primary-500 rounded-lg shadow p-3 mb-3 flex-1 text-center"
-              >
-                <q-card-section>
-                  <div class="text-h6">{{ normalizeMetricName(metric) }}</div>
-                  <div class="text-h4">{{ value }}</div>
-                </q-card-section>
-              </div>
-            </template>
-          </div>
-        </q-card-section>
-      </q-card>
-      <q-card>
-        <vue-apex-charts
-          height="350"
-          :options="monthly_movements_chart_options"
-          :series="monthly_movements_series"
-        />
-      </q-card>
-    </div>
+    <template v-if="loading">
+      <q-card-section>
+        <div class="flex justify-center items-center h-[calc(100vh-150px)]">
+          <q-spinner-cube color="primary" size="3rem" />
+        </div>
+      </q-card-section>
+    </template>
+    <template v-else>
+      <div class="flex flex-col gap-4">
+        <q-card>
+          <q-card-section>
+            <div class="text-h6">Dashboard</div>
+            <div class="text-subtitle2">Visão geral do estoque e movimentações</div>
+          </q-card-section>
+          <q-separator />
+          <q-card-section>
+            <div class="flex gap-4" v-if="metrics">
+              <template v-for="[metric, value] in Object.entries(metrics)" :key="value">
+                <div
+                  class="bg-primary-500/40 border border-primary-500 text-primary-500 rounded-lg shadow p-3 mb-3 flex-1 text-center"
+                >
+                  <q-card-section>
+                    <div class="text-h6">{{ normalizeMetricName(metric) }}</div>
+                    <div class="text-h4">{{ value }}</div>
+                  </q-card-section>
+                </div>
+              </template>
+            </div>
+          </q-card-section>
+        </q-card>
+        <q-card>
+          <vue-apex-charts
+            height="350"
+            :options="monthly_movements_chart_options"
+            :series="monthly_movements_series"
+          />
+        </q-card>
+        <q-card>
+          <LowStockProductTable :low_stock_products="low_stock_products" />
+        </q-card>
+      </div>
+    </template>
   </q-page>
 </template>
 <script setup lang="ts">
 import VueApexCharts from 'vue3-apexcharts';
 import { computed, onMounted, ref } from 'vue';
-import { DashboardResponse } from 'src/interfaces/dashboard';
+import type { DashboardResponse } from 'src/interfaces/dashboard';
 import { getDashboardData } from 'src/services/dashboard';
+import LowStockProductTable from 'src/components/dashboard/LowStockProductTable.vue';
 
 const loading = ref(false);
 const dashboard_data = ref<DashboardResponse | null>(null);
 
-const data = {
-  chartOptions: {
-    chart: {
-      id: 'vuechart-example',
-    },
-    xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998],
-    },
-  },
-  series: [
-    {
-      name: 'series-1',
-      data: [30, 40, 35, 50, 49, 60, 70, 91],
-    },
-  ],
-};
-
-onMounted(() => {
-  void getDashboard();
+onMounted(async () => {
+  await getDashboard();
+  console.log('dashboard_data', dashboard_data.value);
 });
 
 const metrics = computed(() => {
@@ -77,10 +74,10 @@ const low_stock_products = computed(() => {
   return dashboard_data.value.low_stock_products;
 });
 
-const recent_movements = computed(() => {
-  if (!dashboard_data.value) return [];
-  return dashboard_data.value.recent_movements;
-});
+// const recent_movements = computed(() => {
+//   if (!dashboard_data.value) return [];
+//   return dashboard_data.value.recent_movements;
+// });
 
 const monthly_movements_series = computed(() => {
   if (!dashboard_data.value) return [];

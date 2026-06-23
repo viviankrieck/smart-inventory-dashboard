@@ -10,6 +10,7 @@ const routes: RouteRecordRaw[] = [
     path: '/dashboard',
     component: () => import('layouts/MainLayout.vue'),
     name: 'dashboard',
+    redirect: '/dashboard',
     children: [{ path: '', component: () => import('pages/dashboard/DashboardPage.vue') }],
   },
 
