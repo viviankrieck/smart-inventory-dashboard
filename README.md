@@ -130,6 +130,14 @@ Contribuições são bem-vindas! Se você tiver sugestões para melhorar este pr
 
 ---
 
+## 🌐 Demonstração
+
+Acesse a aplicação online:
+
+https://smart-inventory-dashboard-tau.vercel.app/?#/login
+
+> Observação: este projeto utiliza dados simulados (mockados) para demonstrar funcionalidades de dashboard, autenticação e gerenciamento de inventário.
+
 ## 📄 Licença
 
 Distribuído sob a licença MIT. Veja `LICENSE` para mais informações.
