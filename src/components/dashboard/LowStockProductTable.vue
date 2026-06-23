@@ -6,6 +6,7 @@
       row-key="id"
       :rows="low_stock_products"
       :columns="columns"
+      card-class="max-w-[calc(100vw-2rem)] w-full overflow-x-auto"
       :rows-per-page-options="[5, 10, 15]"
     >
       <template v-slot:body="props">

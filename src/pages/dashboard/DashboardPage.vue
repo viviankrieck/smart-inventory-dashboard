@@ -9,35 +9,35 @@
     </template>
     <template v-else>
       <div class="flex flex-col gap-4">
-        <q-card>
+        <q-card class="max-w-[calc(100vw-1rem)] overflow-x-auto">
           <q-card-section>
             <div class="text-h6">Dashboard</div>
             <div class="text-subtitle2">Visão geral do estoque e movimentações</div>
           </q-card-section>
           <q-separator />
           <q-card-section>
-            <div class="flex gap-4" v-if="metrics">
+            <div class="flex grid gap-4 cols-1 sm:cols-2 lg:cols-4" v-if="metrics">
               <template v-for="[metric, value] in Object.entries(metrics)" :key="value">
                 <div
-                  class="bg-primary-500/40 border border-primary-500 text-primary-500 rounded-lg shadow p-3 mb-3 flex-1 text-center"
+                  class="bg-primary-500/40 border border-primary-500 text-primary-500 rounded-lg shadow p-2 mb-2 flex flex-center text-center"
                 >
-                  <q-card-section>
-                    <div class="text-h6">{{ normalizeMetricName(metric) }}</div>
-                    <div class="text-h4">{{ value }}</div>
-                  </q-card-section>
+                  <div>
+                    <div class="text-[1rem] font-medium">{{ normalizeMetricName(metric) }}</div>
+                    <div class="text-[1.25rem]">{{ value }}</div>
+                  </div>
                 </div>
               </template>
             </div>
           </q-card-section>
         </q-card>
-        <q-card>
+        <q-card class="max-w-[calc(100vw-1rem)] overflow-x-auto">
           <vue-apex-charts
             height="350"
             :options="monthly_movements_chart_options"
             :series="monthly_movements_series"
           />
         </q-card>
-        <q-card>
+        <q-card class="max-w-[calc(100vw-1rem)] overflow-x-auto">
           <LowStockProductTable :low_stock_products="low_stock_products" />
         </q-card>
       </div>

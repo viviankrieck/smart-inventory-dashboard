@@ -1,6 +1,14 @@
 import { defineConfig, presetWind4, presetAttributify, transformerVariantGroup } from 'unocss';
 
 export default defineConfig({
+  shortcuts: {
+    // shortcuts to multiple utilities
+    'bg-linear':
+      'bg-linear-to-t from-primary-800 to-primary-400 dark:bg-linear-to-t dark:from-gray-950 dark:to-gray-800',
+    'text-main': 'text-primary-800 dark:text-primary-500',
+    'bg-main': 'bg-primary-700 dark:primary-500',
+    'text-soft': 'text-gray-700 dark:text-gray-400',
+  },
   theme: {
     breakpoints: {
       '2xl': '120rem',
@@ -22,6 +30,7 @@ export default defineConfig({
       'primary-700': '#1D42B8',
       'primary-800': '#17338E',
       'primary-900': '#102563',
+      'primary-950': '#0d1c4a',
     },
   },
   presets: [

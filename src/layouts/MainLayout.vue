@@ -6,7 +6,7 @@
 
     <DrawerMain v-model="left_drawer_open" />
 
-    <q-page-container class="bg-linear-to-r from-primary-300 to-primary-200">
+    <q-page-container :class="{ 'bg-linear-to-r from-primary-300 to-primary-200': !Dark.isActive }">
       <router-view />
     </q-page-container>
   </q-layout>
@@ -16,6 +16,7 @@
 import { ref } from 'vue';
 import MainHeader from 'src/layouts/components/MainHeader.vue';
 import DrawerMain from 'src/layouts/components/DrawerMain.vue';
+import { Dark } from 'quasar';
 
 const left_drawer_open = ref(false);
 

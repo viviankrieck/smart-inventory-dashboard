@@ -1,8 +1,10 @@
 <template>
-  <q-toolbar class="bg-linear-to-bl from-primary-800 to-primary-400">
+  <q-toolbar class="flex items-center justify-between bg-linear">
     <q-btn flat dense round icon="menu" aria-label="Menu" @click="emit('toggle-left-drawer')" />
 
-    <div class="flex w-full items-center justify-end">
+    <div>
+      <ThemeSwitcher />
+
       <q-btn
         flat
         dense
@@ -31,6 +33,7 @@
 import { ref } from 'vue';
 import { useAuth } from 'src/composables/auth';
 import { useDependencies } from 'src/composables/dependencies';
+import ThemeSwitcher from 'src/components/common/ThemeSwitcher.vue';
 
 /* DEPENDENCIES */
 const { logout } = useAuth();

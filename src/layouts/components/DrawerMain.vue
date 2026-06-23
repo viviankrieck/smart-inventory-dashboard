@@ -1,10 +1,5 @@
 <template>
-  <q-drawer
-    v-model="left_drawer_open"
-    show-if-above
-    bordered
-    class="bg-linear-to-t from-primary-800 to-primary-400"
-  >
+  <q-drawer v-model="left_drawer_open" show-if-above bordered class="bg-linear">
     <q-list>
       <q-item-label header>
         <div class="flex flex-col items-center mb-6">
