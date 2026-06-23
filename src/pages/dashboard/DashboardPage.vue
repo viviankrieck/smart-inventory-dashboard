@@ -56,7 +56,6 @@ const dashboard_data = ref<DashboardResponse | null>(null);
 
 onMounted(async () => {
   await getDashboard();
-  console.log('dashboard_data', dashboard_data.value);
 });
 
 const metrics = computed(() => {
