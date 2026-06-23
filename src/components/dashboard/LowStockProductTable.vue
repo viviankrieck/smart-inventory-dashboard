@@ -56,7 +56,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { LowStockProduct } from 'src/interfaces/dashboard';
+import type { LowStockProduct } from 'src/interfaces/dashboard';
 
 const { low_stock_products = [] } = defineProps<{
   low_stock_products: Array<LowStockProduct>;
