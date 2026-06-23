@@ -58,6 +58,13 @@ export const dashboardMock: DashboardResponse = {
     },
     {
       id: 3,
+      name: 'Gabinete Gamer XYZ',
+      sku: 'GAB-002',
+      quantity: 5,
+      minimum_quantity: 5,
+    },
+    {
+      id: 4,
       name: 'Monitor LG 24"',
       sku: 'MON-003',
       quantity: 1,
