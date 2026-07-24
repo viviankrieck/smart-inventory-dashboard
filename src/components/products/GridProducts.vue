@@ -5,7 +5,7 @@
       :key="product.id"
       flat
       bordered
-      class="flex flex-col h-full rounded-2xl border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 hover:shadow-md transition-shadow duration-200"
+      class="flex flex-col h-full rounded-2xl border-slate-200 dark:border-slate-800 bg-neutral-100/20 dark:bg-slate-900 hover:shadow-md transition-shadow duration-200"
     >
       <!-- Conteúdo Principal -->
       <div class="p-4 grow flex flex-col justify-between gap-3">

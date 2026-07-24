@@ -54,7 +54,8 @@
         </div>
 
         <template v-if="view_mode === 'grid'">
-          <GridProducts :products="products" />
+          <SkeletonGridProducts v-if="is_loading" />
+          <GridProducts v-else :products="products" />
         </template>
 
         <template v-if="view_mode === 'list'">
@@ -74,10 +75,12 @@ import type { ProductI } from 'src/interfaces/product';
 /* SERVICES */
 import useProductService from 'src/services/product-service';
 import GridProducts from 'src/components/products/GridProducts.vue';
+import SkeletonGridProducts from 'src/components/products/SkeletonGridProducts.vue';
 
 const { list } = useProductService();
 
 const products = ref<ProductI[]>([]);
+const is_loading = ref(true);
 const view_mode = ref<'list' | 'grid'>('grid');
 
 onMounted(() => {
@@ -85,12 +88,16 @@ onMounted(() => {
 });
 
 function getProducts() {
+  is_loading.value = true;
   list()
     .then((response) => {
       products.value = response.data.products; // Adjust based on the actual response structure
     })
     .catch((error) => {
       console.error(error);
+    })
+    .finally(() => {
+      is_loading.value = false;
     });
 }
 </script>
