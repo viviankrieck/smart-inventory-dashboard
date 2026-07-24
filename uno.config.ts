@@ -5,9 +5,9 @@ export default defineConfig({
     // shortcuts to multiple utilities
     'bg-linear':
       'bg-linear-to-t from-primary-800 to-primary-400 dark:bg-linear-to-t dark:from-gray-950 dark:to-gray-800',
-    'text-main': 'text-primary-800 dark:text-primary-500',
-    'bg-main': 'bg-primary-700 dark:primary-500',
-    'text-soft': 'text-gray-700 dark:text-gray-400',
+    'text-main': 'text-primary-800 dark:text-primary-400',
+    'bg-main': 'bg-primary-700 dark:bg-primary-500',
+    'text-soft': 'text-gray-500 dark:text-gray-400',
   },
   theme: {
     breakpoints: {

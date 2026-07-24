@@ -9,9 +9,22 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/dashboard',
     component: () => import('layouts/MainLayout.vue'),
-    name: 'dashboard',
-    redirect: '/dashboard',
-    children: [{ path: '', component: () => import('pages/dashboard/DashboardPage.vue') }],
+    // Removido o redirect: '/dashboard'
+    children: [
+      { path: '', name: 'dashboard', component: () => import('pages/dashboard/DashboardPage.vue') },
+    ],
+  },
+  {
+    path: '/products',
+    component: () => import('layouts/MainLayout.vue'), // Adicione o layout se necessário
+    // Removido o redirect: '/products'
+    children: [
+      {
+        path: '',
+        name: 'products',
+        component: () => import('../pages/products/IndexProducts.vue'),
+      },
+    ],
   },
 
   // Always leave this as last one,

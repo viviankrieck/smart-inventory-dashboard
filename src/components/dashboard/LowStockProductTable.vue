@@ -16,28 +16,23 @@
               {{ props.row.id }}
               <q-icon
                 v-if="minimum_quantity_exceeded(props.row)"
-                :name="minimum_quantity_color(props.row).icon"
-                :color="minimum_quantity_color(props.row).color"
+                :name="badge_data(props.row).icon"
+                :color="badge_data(props.row).color"
                 size="xs"
                 class="q-ml-xs"
-              >
-                <q-tooltip class="text-sm">
-                  {{ minimum_quantity_color(props.row).tooltip }}
-                </q-tooltip>
-              </q-icon>
+              />
             </div>
           </q-td>
           <q-td key="name" :props="props">
             <div :class="{ 'text-red-4': minimum_quantity_exceeded(props.row) }">
               {{ props.row.name }}
             </div>
+            <q-badge :color="badge_data(props.row).color" :icon="badge_data(props.row).icon">
+              {{ badge_data(props.row).tooltip }}
+            </q-badge>
           </q-td>
           <q-td key="quantity" :props="props">
-            <q-badge
-              :color="minimum_quantity_color(props.row).color"
-              :icon="minimum_quantity_color(props.row).icon"
-              :title="minimum_quantity_color(props.row).tooltip"
-            >
+            <q-badge :color="badge_data(props.row).color" :icon="badge_data(props.row).icon">
               {{ props.row.quantity }}
             </q-badge>
           </q-td>
@@ -105,18 +100,18 @@ const minimum_quantity_exceeded = (row: LowStockProduct) => {
   return row.quantity >= row.minimum_quantity;
 };
 
-const minimum_quantity_color = (row: LowStockProduct) => {
+const badge_data = (row: LowStockProduct) => {
   if (minimum_quantity_exceeded(row)) {
     return {
       color: 'red-4',
       icon: 'warning',
-      tooltip: 'Produto com estoque baixo',
+      tooltip: 'Qtd. mínima excedida',
     };
   } else {
     return {
       color: 'purple-3',
       icon: 'check_circle',
-      tooltip: 'Produto com estoque suficiente',
+      tooltip: 'Estoque suficiente',
     };
   }
 };

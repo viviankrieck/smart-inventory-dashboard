@@ -31,6 +31,11 @@
           </q-card-section>
         </q-card>
         <q-card class="max-w-[calc(100vw-1rem)] overflow-x-auto">
+          <q-card-section>
+            <div class="text-h6">Movimentações Mensais</div>
+            <div class="text-subtitle2">Entradas e saídas de produtos por mês</div>
+          </q-card-section>
+          <q-separator />
           <vue-apex-charts
             height="350"
             :options="monthly_movements_chart_options"
