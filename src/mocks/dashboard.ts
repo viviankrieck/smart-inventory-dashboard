@@ -53,7 +53,7 @@ export const dashboardMock: DashboardResponse = {
       id: 2,
       name: 'Teclado Mecânico Redragon',
       sku: 'TEC-002',
-      quantity: 2,
+      quantity: 50,
       minimum_quantity: 8,
     },
     {
@@ -67,7 +67,7 @@ export const dashboardMock: DashboardResponse = {
       id: 4,
       name: 'Monitor LG 24"',
       sku: 'MON-003',
-      quantity: 1,
+      quantity: 25,
       minimum_quantity: 5,
     },
   ],

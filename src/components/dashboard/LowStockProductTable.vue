@@ -6,121 +6,87 @@
       row-key="id"
       :rows="low_stock_products"
       :columns="columns"
-      card-class="max-w-[calc(100vw-2rem)] w-full overflow-x-auto"
+      card-class="bg-dark-surface text-neutral max-w-[calc(100vw-2rem)] w-full overflow-x-auto"
       :rows-per-page-options="[5, 10, 15]"
     >
       <template v-slot:body="props">
-        <q-tr :props="props">
-          <q-td key="id" :props="props">
-            <div :class="{ 'text-red-4': minimum_quantity_exceeded(props.row) }">
-              {{ props.row.id }}
-              <q-icon
-                v-if="minimum_quantity_exceeded(props.row)"
-                :name="badge_data(props.row).icon"
-                :color="badge_data(props.row).color"
-                size="xs"
-                class="q-ml-xs"
-              />
-            </div>
-          </q-td>
+        <q-tr :props="props" class="hover:bg-neutral/5 transition-colors">
+          <!-- ID -->
+          <q-td key="id" :props="props" class="text-soft font-mono"> #{{ props.row.id }} </q-td>
+
+          <!-- Produto e Badge de Status -->
           <q-td key="name" :props="props">
-            <div :class="{ 'text-red-4': minimum_quantity_exceeded(props.row) }">
+            <div class="font-medium">
               {{ props.row.name }}
             </div>
-            <q-badge :color="badge_data(props.row).color" :icon="badge_data(props.row).icon">
-              {{ badge_data(props.row).tooltip }}
+            <q-badge outline :color="get_status(props.row).color" class="q-mt-xs q-px-sm">
+              <q-icon :name="get_status(props.row).icon" size="14px" class="q-mr-xs" />
+              {{ get_status(props.row).label }}
             </q-badge>
           </q-td>
-          <q-td key="quantity" :props="props">
-            <q-badge :color="badge_data(props.row).color" :icon="badge_data(props.row).icon">
+
+          <!-- Quantidade Atual -->
+          <q-td key="quantity" :props="props" class="text-center">
+            <span
+              class="font-medium"
+              :class="is_low_stock(props.row) ? 'text-negative' : 'text-soft'"
+            >
               {{ props.row.quantity }}
-            </q-badge>
+            </span>
           </q-td>
-          <q-td key="minimum_quantity" :props="props">
-            <q-badge :color="quantity_color(props.row)">
-              {{ props.row.minimum_quantity }}
-            </q-badge>
+
+          <!-- Quantidade Mínima -->
+          <q-td key="minimum_quantity" :props="props" class="text-center text-soft font-medium">
+            {{ props.row.minimum_quantity }}
           </q-td>
-          <q-td key="sku" :props="props">
-            <q-badge :color="sku_color(props.row)">
+
+          <!-- SKU -->
+          <q-td key="sku" :props="props" class="text-center">
+            <code class="bg-neutral-300 dark:bg-neutral-700/60 q-px-xs q-py-none rounded text-soft">
               {{ props.row.sku }}
-            </q-badge>
+            </code>
           </q-td>
         </q-tr>
       </template>
     </q-table>
   </div>
 </template>
+
 <script setup lang="ts">
 import type { LowStockProduct } from 'src/interfaces/dashboard';
+import { column } from 'src/utils/table';
 
-const { low_stock_products = [] } = defineProps<{
+const { low_stock_products } = defineProps<{
   low_stock_products: Array<LowStockProduct>;
 }>();
 
+// Colunas corrigidas (sem duplicação de 'quantity')
 const columns = [
-  {
-    name: 'id',
-    required: true,
-    label: 'ID',
-    align: 'left' as const,
-    field: 'id',
-  },
-  {
-    name: 'name',
-    required: true,
-    label: 'Produto',
-    align: 'left' as const,
-    field: 'name',
-  },
-  {
-    name: 'quantity',
-    required: true,
-    label: 'Quantidade',
-    align: 'center' as const,
-    field: 'quantity',
-  },
-  {
-    name: 'minimum_quantity',
-    required: true,
-    label: 'Quantidade Mínima',
-    align: 'center' as const,
-    field: 'minimum_quantity',
-  },
-  {
-    name: 'sku',
-    required: true,
-    label: 'SKU',
-    align: 'center' as const,
-    field: 'sku',
-  },
+  column('id', { label: 'ID', align: 'left' }),
+  column('name', { label: 'Produto', align: 'left' }),
+  column('quantity', { label: 'Qtd. Atual', align: 'center' }),
+  column('minimum_quantity', { label: 'Qtd. Mínima', align: 'center' }),
+  column('sku', { label: 'SKU', align: 'center' }),
 ];
 
-const minimum_quantity_exceeded = (row: LowStockProduct) => {
-  return row.quantity >= row.minimum_quantity;
+// Lógica corrigida: Alerta ativado quando Estoque Atual <= Mínimo
+const is_low_stock = (row: LowStockProduct) => {
+  return row.quantity <= row.minimum_quantity;
 };
 
-const badge_data = (row: LowStockProduct) => {
-  if (minimum_quantity_exceeded(row)) {
+// Retorna dados do Status
+const get_status = (row: LowStockProduct) => {
+  if (is_low_stock(row)) {
     return {
-      color: 'red-4',
+      color: 'negative', // Vermelho no Quasar
       icon: 'warning',
-      tooltip: 'Qtd. mínima excedida',
-    };
-  } else {
-    return {
-      color: 'purple-3',
-      icon: 'check_circle',
-      tooltip: 'Estoque suficiente',
+      label: 'Estoque Baixo',
     };
   }
-};
-
-const quantity_color = (row: LowStockProduct) => {
-  return minimum_quantity_exceeded(row) ? 'red-4' : 'purple-3';
-};
-
-const sku_color = (row: LowStockProduct) => {
-  return minimum_quantity_exceeded(row) ? 'red-4' : 'primary';
+  return {
+    color: 'positive', // Verde no Quasar
+    icon: 'check_circle',
+    label: 'Estoque Ok',
+  };
 };
 </script>
