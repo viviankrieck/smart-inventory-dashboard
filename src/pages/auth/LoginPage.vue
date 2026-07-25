@@ -1,15 +1,19 @@
 <template>
   <q-page padding class="login-background">
     <div>
-      <div class="flex justify-start items-center h-screen">
+      <div class="flex justify-start items-center h-[calc(100vh-64px)]">
         <div
-          class="bg-primary-100 bg-opacity-50 p-8 rounded-lg shadow-md w-full max-w-md ml-[10vw]"
+          class="bg-primary-200/70 dark:bg-gray-700/70 backdrop-blur-sm p-8 rounded-lg shadow-md w-full max-w-md md:ml-[10vw]"
         >
           <div class="flex flex-col items-center mb-6">
             <img src="favicon.png" alt="Smart Inventory Logo" style="width: 60px; height: auto" />
             <LogoSmart />
 
-            <div class="text-center text-gray-700 mt-4">
+            <div class="absolute top-2 right-2">
+              <ThemeSwitcher />
+            </div>
+
+            <div class="text-center text-soft mt-4">
               Gerencie seu estoque de forma inteligente e eficiente com o Smart Inventory Dashboard.
               Faça login para acessar suas informações e otimizar sua gestão de inventário.
             </div>
@@ -37,15 +41,15 @@
             <div class="flex items-center justify-between mb-6">
               <q-checkbox v-model="remember_me" label="Lembrar de mim" />
 
-              <a href="#" class="text-sm text-primary-800 hover:underline">Esqueci minha senha</a>
+              <a href="#" class="text-sm text-main hover:underline">Esqueci minha senha</a>
             </div>
 
             <q-btn
               dense
-              color="primary"
               label="Login"
               type="submit"
-              class="w-full"
+              text-color="white"
+              class="w-full !bg-main"
               :loading="is_loading"
               @click="handleLogin"
             />
@@ -61,6 +65,7 @@ import { ref } from 'vue';
 import LogoSmart from 'src/components/common/LogoSmart.vue';
 import { useAuth } from 'src/composables/auth';
 import { useDependencies } from 'src/composables/dependencies';
+import ThemeSwitcher from 'src/components/common/ThemeSwitcher.vue';
 
 const { router } = useDependencies();
 const { email, password, remember_me, login } = useAuth();

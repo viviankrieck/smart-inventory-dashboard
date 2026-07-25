@@ -1,11 +1,11 @@
 import { Notify } from 'quasar';
-import { authLoginValidateMock, authLogoutMock } from 'src/mocks/auth';
+import { AUTH_USER, authLoginValidateMock, authLogoutMock } from 'src/mocks/auth';
 import { ref } from 'vue';
 
 export function useAuth() {
-  const email = ref('');
-  const password = ref('');
-  const remember_me = ref(false);
+  const email = ref(AUTH_USER.email);
+  const password = ref(AUTH_USER.password);
+  const remember_me = ref(AUTH_USER.remember_me);
 
   async function login(): Promise<void> {
     try {
