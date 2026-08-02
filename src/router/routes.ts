@@ -2,33 +2,32 @@ import type { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
   {
+    path: '/login',
+    component: () => import('layouts/AuthLayout.vue'),
+    children: [{ path: '', name: 'login', component: () => import('pages/LoginPage.vue') }],
+    meta: { requiresAuth: false },
+  },
+
+  {
     path: '/',
-    redirect: '/login',
-    children: [{ path: '/login', component: () => import('../pages/auth/LoginPage.vue') }],
-  },
-  {
-    path: '/dashboard',
     component: () => import('layouts/MainLayout.vue'),
-    // Removido o redirect: '/dashboard'
+    meta: { requiresAuth: true },
     children: [
-      { path: '', name: 'dashboard', component: () => import('pages/dashboard/DashboardPage.vue') },
-    ],
-  },
-  {
-    path: '/products',
-    component: () => import('layouts/MainLayout.vue'), // Adicione o layout se necessário
-    // Removido o redirect: '/products'
-    children: [
+      { path: '', redirect: { name: 'dashboard' } },
+      { path: 'dashboard', name: 'dashboard', component: () => import('pages/DashboardPage.vue') },
+      { path: 'produtos', name: 'products', component: () => import('pages/ProductsPage.vue') },
       {
-        path: '',
-        name: 'products',
-        component: () => import('../pages/products/IndexProducts.vue'),
+        path: 'produtos/:id',
+        name: 'product-detail',
+        component: () => import('pages/ProductDetailPage.vue'),
+        props: true,
       },
+      { path: 'estoque-baixo', name: 'low-stock', component: () => import('pages/LowStockPage.vue') },
+      { path: 'configuracoes', name: 'settings', component: () => import('pages/SettingsPage.vue') },
+      { path: 'perfil', name: 'profile', component: () => import('pages/ProfilePage.vue') },
     ],
   },
 
-  // Always leave this as last one,
-  // but you can also remove it
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),

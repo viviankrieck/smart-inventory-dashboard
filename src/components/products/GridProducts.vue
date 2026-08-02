@@ -61,9 +61,7 @@
           class="bg-slate-50 dark:bg-slate-800/50 rounded-xl p-3 border border-slate-100 dark:border-slate-800/80"
         >
           <div class="flex justify-between items-center mb-1.5">
-            <span
-              class="text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1"
-            >
+            <span class="text-xs font-medium text-slate-500 dark:text-slate-400 flex items-center gap-1">
               <q-icon name="inventory_2" size="16px" class="text-slate-400" />
               Nível de Estoque
             </span>
@@ -93,9 +91,7 @@
         <div class="grid grid-cols-2 gap-2 text-xs text-slate-600 dark:text-slate-400">
           <div class="flex items-center gap-1.5 truncate">
             <q-icon name="qr_code_2" size="16px" class="text-slate-400 shrink-0" />
-            <span class="font-mono truncate" :title="product.meta.barcode">{{
-              product.meta.barcode
-            }}</span>
+            <span class="font-mono truncate" :title="product.meta.barcode">{{ product.meta.barcode }}</span>
           </div>
           <div class="flex items-center gap-1.5 justify-end">
             <q-icon name="straighten" size="16px" class="text-slate-400 shrink-0" />
@@ -112,42 +108,22 @@
       <!-- Rodapé Operacional / Ações -->
       <q-separator class="border-slate-100 dark:border-slate-800" />
 
-      <div
-        class="p-3 bg-slate-50/50 dark:bg-slate-800/30 flex items-center justify-between rounded-b-2xl"
-      >
+      <div class="p-3 bg-slate-50/50 dark:bg-slate-800/30 flex items-center justify-between rounded-b-2xl">
         <!-- Preço e Qtd Mínima (Informativo secundário) -->
         <div>
-          <span class="text-[10px] uppercase font-semibold text-slate-400 block leading-none"
-            >Custo Un.</span
-          >
+          <span class="text-[10px] uppercase font-semibold text-slate-400 block leading-none">Custo Un.</span>
           <span class="text-sm font-bold text-slate-700 dark:text-slate-200"
             >${{ product.price.toFixed(2) }}</span
           >
-          <span class="text-[10px] text-slate-400 ml-1"
-            >(Mín: {{ product.minimumOrderQuantity }})</span
-          >
+          <span class="text-[10px] text-slate-400 ml-1">(Mín: {{ product.minimumOrderQuantity }})</span>
         </div>
 
         <!-- Botões de Ação Rápida de Estoque -->
         <div class="flex gap-1">
-          <q-btn
-            flat
-            round
-            dense
-            icon="history"
-            size="sm"
-            class="text-slate-500 hover:text-indigo-600"
-          >
+          <q-btn flat round dense icon="history" size="sm" class="text-slate-500 hover:text-indigo-600">
             <q-tooltip class="bg-slate-800 text-xs">Histórico de Movimentações</q-tooltip>
           </q-btn>
-          <q-btn
-            flat
-            round
-            dense
-            icon="edit"
-            size="sm"
-            class="text-slate-500 hover:text-indigo-600"
-          >
+          <q-btn flat round dense icon="edit" size="sm" class="text-slate-500 hover:text-indigo-600">
             <q-tooltip class="bg-slate-800 text-xs">Ajustar Estoque</q-tooltip>
           </q-btn>
         </div>
@@ -157,10 +133,10 @@
 </template>
 
 <script setup lang="ts">
-import type { ProductI } from 'src/interfaces/product'; // Ajuste seu import
+import type { Product } from 'src/interfaces/product';
 
 defineProps<{
-  products: ProductI[];
+  products: Product[];
 }>();
 
 // Helpers para cores e status baseados no volume de estoque

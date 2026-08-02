@@ -1,6 +1,6 @@
 {
   "name": "smart-inventory-dashboard",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Inventory management dashboard built with Vue 3, Quasar and TypeScript",
   "productName": "Smart Inventory Dashboard",
   "author": "Vivian Pereira <vivian_pereira@outlook.com.br>",

@@ -1,5 +1,8 @@
-import { defineConfig, presetWind4, presetAttributify, transformerVariantGroup } from 'unocss';
+import { defineConfig, presetWind4 } from 'unocss';
 
+// Usamos apenas utilitários de espaçamento/flex/grid do UnoCSS.
+// Cores, tipografia e componentes ficam a cargo do Quasar (evita duplicidade
+// de sistemas de design dentro do mesmo projeto).
 export default defineConfig({
   shortcuts: {
     // shortcuts to multiple utilities
@@ -10,12 +13,9 @@ export default defineConfig({
     'text-soft': 'text-gray-500 dark:text-gray-400',
   },
   theme: {
-    breakpoints: {
+    breakpoint: {
       '2xl': '120rem',
       '3xl': '150rem',
-    },
-    fontSize: {
-      '2xs': '0.625rem',
     },
     colors: {
       // Define a base e as variações no mesmo nível para evitar falhas de interpretação do presetWind4
@@ -37,9 +37,8 @@ export default defineConfig({
     presetWind4({
       dark: { dark: '.body--dark' },
     }),
-    presetAttributify(),
   ],
-  transformers: [transformerVariantGroup()],
+  transformers: [],
   content: {
     pipeline: {
       include: [
