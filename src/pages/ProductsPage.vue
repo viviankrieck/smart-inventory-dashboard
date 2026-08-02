@@ -47,11 +47,7 @@
       {{ productsStore.error }}
     </q-banner>
 
-    <ProductTable
-      :products="productsStore.items"
-      :loading="productsStore.isLoading"
-      @select="goToDetail"
-    />
+    <ProductTable :products="productsStore.items" :loading="productsStore.isLoading" @select="goToDetail" />
 
     <div class="row justify-center q-mt-md">
       <q-pagination
@@ -99,11 +95,11 @@ const onCategoryChange = (value: string | null) => {
 };
 
 const goToDetail = (product: Product) => {
-  void router.push({ name: 'product-detail', params: { id: product.id } });
+  router.push({ name: 'product-detail', params: { id: product.id } });
 };
 
 onMounted(() => {
-  void productsStore.fetchCategories();
-  void productsStore.fetchProducts();
+  productsStore.fetchCategories();
+  productsStore.fetchProducts();
 });
 </script>

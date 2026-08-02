@@ -14,8 +14,8 @@
             </div>
 
             <div class="text-center text-soft mt-4">
-              Gerencie seu estoque de forma inteligente e eficiente com o Smart Inventory Dashboard.
-              Faça login para acessar suas informações e otimizar sua gestão de inventário.
+              Gerencie seu estoque de forma inteligente e eficiente com o Smart Inventory Dashboard. Faça
+              login para acessar suas informações e otimizar sua gestão de inventário.
             </div>
           </div>
           <q-form>
@@ -24,15 +24,7 @@
                 <q-icon name="email" />
               </template>
             </q-input>
-            <q-input
-              dense
-              filled
-              v-model="password"
-              label="Senha"
-              type="password"
-              class="mb-6"
-              icon
-            >
+            <q-input dense filled v-model="password" label="Senha" type="password" class="mb-6" icon>
               <template v-slot:prepend>
                 <q-icon name="lock" />
               </template>
@@ -76,7 +68,7 @@ async function handleLogin() {
   is_loading.value = true;
   try {
     await login();
-    void router.push({ name: 'dashboard' });
+    router.push({ name: 'dashboard' });
   } finally {
     is_loading.value = false;
   }
